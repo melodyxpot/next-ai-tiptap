@@ -20,6 +20,7 @@
     "@tiptap/react": "^2.6.6",
     "@tiptap/starter-kit": "^2.6.6",
     "@upstash/ratelimit": "^2.0.2",
+    "@vercel/kv": "^2.0.0",
     "ai": "^3.3.28",
     "clsx": "^2.1.1",
     "fetch-retry": "^6.0.0",
