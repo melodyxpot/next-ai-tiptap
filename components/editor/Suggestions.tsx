@@ -12,11 +12,7 @@ interface PopupChildrenProps {
   context: SelectionContext | null;
 }
 
-export const Suggestions = ({
-  isLoading,
-  suggestions,
-  context,
-}: PopupChildrenProps) => {
+export const Suggestions = ({ isLoading, suggestions }: PopupChildrenProps) => {
   const { editor } = useCurrentEditor();
 
   const originalTextRef = React.useRef<string | null>(null);

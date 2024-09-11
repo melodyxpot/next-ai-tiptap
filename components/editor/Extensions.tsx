@@ -28,7 +28,7 @@ export const TextReplacementExtension = Extension.create({
   name: "textReplacement",
   addCommands() {
     let originalText: string = "";
-    let replacedText: string = "";
+    // let replacedText: string = "";
 
     return {
       setText:
@@ -54,7 +54,7 @@ export const TextReplacementExtension = Extension.create({
             "\n",
           );
 
-          replacedText = text;
+          // replacedText = text;
 
           commands.setText(text);
 
@@ -73,7 +73,7 @@ export const TextReplacementExtension = Extension.create({
             .run();
 
           originalText = "";
-          replacedText = "";
+          // replacedText = "";
 
           return true;
         },
@@ -136,7 +136,7 @@ export const CompletionExtension = Extension.create({
         },
       confirmCompletion:
         () =>
-        ({ tr, state, chain }) => {
+        ({ state, chain }) => {
           const nodes = findChildren(state.doc, (node) => {
             return node.type.name === "previewCompletion";
           });

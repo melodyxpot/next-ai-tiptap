@@ -7,28 +7,28 @@ import { withRateLimit } from "../utils";
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 // Set the runtime to edge for best performance
 export const runtime = "edge";
 
 export const POST = withRateLimit(async (req) => {
-    const { before, selection, after } = (await req.json()) as SelectionContext;
+  const { before, selection, after } = (await req.json()) as SelectionContext;
 
-    const joinedContext = `${before}[${selection}]${after}`
-        .replace("\n", "\\n")
-        .trim();
+  const joinedContext = `${before}[${selection}]${after}`
+    .replace("\n", "\\n")
+    .trim();
 
-    console.log("joinedContext", joinedContext);
+  console.log("joinedContext", joinedContext);
 
-    // Ask OpenAI for a streaming completion given the prompt
-    const response = await openai.completions.create({
-        model: "gpt-3.5-turbo-instruct",
-        temperature: 0.6,
-        max_tokens: 256,
-        stop: ["</suggestions"],
-        prompt: `Suggest better ways to phrase the sentence inside the [...] square brackets. Only rephrase the text inside the brackets, not the text outside the brackets. Make sure the suggestions work in the context of the sentence.
+  // Ask OpenAI for a streaming completion given the prompt
+  const response = await openai.completions.create({
+    model: "gpt-3.5-turbo-instruct",
+    temperature: 0.6,
+    max_tokens: 256,
+    stop: ["</suggestions"],
+    prompt: `Suggest better ways to phrase the sentence inside the [...] square brackets. Only rephrase the text inside the brackets, not the text outside the brackets. Make sure the suggestions work in the context of the sentence.
 <guidelines>
 - Make sure a suggestion works in the context of the sentence.
 - The suggestion should be an exact replacement of the text inside the brackets. No extra words should be added that do not fit in the context of the sentence.
@@ -60,29 +60,29 @@ The [tracks for the San Ramon Branch Line of the Southern Pacific Railroad were 
 ${joinedContext}
 </input>
 <suggestions>`,
-    });
+  });
 
-    const outputText = response.choices[0].text;
+  const outputText = response.choices[0].text;
 
-    console.log("--RAW_RESPONSE--");
-    console.log(outputText);
+  console.log("--RAW_RESPONSE--");
+  console.log(outputText);
 
-    const suggestions = Array.from(
-        new Set(
-            outputText.split("\n").flatMap((suggestion) => {
-                let match = suggestion.match(/\[(.*?)\]/);
-                const result = (match ? match[1] : suggestion.replace("- ", ""))
-                    .trim()
-                    .replace("\\n", "\n");
+  const suggestions = Array.from(
+    new Set(
+      outputText.split("\n").flatMap((suggestion) => {
+        const match = suggestion.match(/\[(.*?)\]/);
+        const result = (match ? match[1] : suggestion.replace("- ", ""))
+          .trim()
+          .replace("\\n", "\n");
 
-                if (result && result !== selection) {
-                    return result;
-                }
+        if (result && result !== selection) {
+          return result;
+        }
 
-                return [];
-            })
-        )
-    );
+        return [];
+      }),
+    ),
+  );
 
-    return NextResponse.json(suggestions);
+  return NextResponse.json(suggestions);
 });
