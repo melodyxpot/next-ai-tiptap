@@ -17,6 +17,9 @@ export default function AIEditor() {
 
 	const [showToolbar, setShowToolbar] = useState<boolean>(false);
 	const [popupPosition, setPopupPosition] = useState<Position>({ x: 0, y: 0 });
+	const [popupVisibleState, setPopupVisibleState] =
+		useState<PopupState>("main");
+
 	const editorRef = useRef<HTMLDivElement>(null);
 
 	const handleHighlight = useCallback(
@@ -50,8 +53,8 @@ export default function AIEditor() {
 	};
 
 	const handleOptionSelect = (option: AITask, v?: string) => {
-		setShowToolbar(false);
 		handleSubmitAI(option, v);
+		setPopupVisibleState("result");
 	};
 
 	const replaceSelectedText = () => {
@@ -99,6 +102,8 @@ export default function AIEditor() {
 						replaceSelectedText={replaceSelectedText}
 						position={popupPosition}
 						hideToolbar={hideToolbar}
+						visibleState={popupVisibleState}
+						setVisibleState={setPopupVisibleState}
 					/>
 				)}
 			</AnimatePresence>

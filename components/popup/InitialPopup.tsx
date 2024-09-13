@@ -7,6 +7,7 @@ import {
 	SpellCheck,
 	WandSparkles
 } from "lucide-react";
+import { AITask } from "@/@types";
 import ListSelection, { ListOption, iconClassName } from "../ui/ListSelection";
 import Popup from "../ui/Popup";
 import Separator from "../ui/Separator";

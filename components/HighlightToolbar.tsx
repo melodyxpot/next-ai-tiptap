@@ -11,13 +11,12 @@ const HighlightToolbar: React.FC<FeaturePopupProps> = ({
 	onOptionSelect,
 	replaceSelectedText,
 	hideToolbar,
+	visibleState,
+	setVisibleState,
 	position
 }) => {
-	const [visibleState, setVisibleState] = useState<PopupState>("main");
-
 	const handleOptionChoose = (v: string, o: AITask) => {
 		onOptionSelect(o, v);
-		setVisibleState("result");
 	};
 
 	return (

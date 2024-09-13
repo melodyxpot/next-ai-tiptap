@@ -14,11 +14,11 @@ export default function Home() {
 							src="/magic-pen-icon.png"
 							alt="Magic editor icon"
 						/>
-						<h1 className="text-2xl font-semibold">Magic Editor</h1>
+						<h1 className="text-2xl font-semibold">AI Editor</h1>
 					</div>
 					<span className="text-sm text-gray-400 tracking-normal text-center px-8">
-						Start typing to use autocompletion; select any text to trigger
-						suggestions
+						Start typing to use AI toolbar; select any text to modify the text
+						with AI
 					</span>
 				</div>
 				<AITooltipProvideer>

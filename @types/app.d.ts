@@ -49,6 +49,8 @@ interface FeaturePopupProps {
 	position: Position;
 	replaceSelectedText: () => void;
 	hideToolbar: () => void;
+	visibleState: PopupState;
+	setVisibleState: React.Dispatch<React.SetStateAction<PopupState>>;
 }
 
 interface ResultProps {
