@@ -8,7 +8,7 @@ import { AITask } from "@/@types";
 import { CONTEXT } from "@/constants";
 import { useAITooltipContext } from "@/contexts/AITooltipProvider";
 import AIButton from "./AIButton";
-import FeaturePopup from "./FeaturePopup";
+import HighlightToolbar from "./HighlightToolbar";
 import PopupExtension from "./PopupExtension";
 import ResultPopup from "./ResultPopup";
 
@@ -99,7 +99,7 @@ export default function AIEditor() {
 					<AIButton onClick={handleAIButtonClick} position={popupPosition} />
 				)}
 				{showFeaturePopup && (
-					<FeaturePopup
+					<HighlightToolbar
 						_onClose={() => setShowFeaturePopup(false)}
 						onOptionSelect={handleOptionSelect}
 						position={popupPosition}
