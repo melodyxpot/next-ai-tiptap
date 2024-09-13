@@ -5,6 +5,7 @@ export enum AITask {
 	Simplify = "simplify",
 	Summarize = "summarize",
 	ChangeStyle = "changeStyle",
+	Regenerate = "regenerate",
 	Custom = "custom"
 }
 

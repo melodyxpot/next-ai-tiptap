@@ -9,25 +9,22 @@ import { CONTEXT } from "@/constants";
 import { useAITooltipContext } from "@/contexts/AITooltipProvider";
 import AIButton from "./AIButton";
 import HighlightToolbar from "./HighlightToolbar";
-import ResultPopup from "./ResultPopup";
 import ToolbarExtension from "./ToolbarExtension";
 
 export default function AIEditor() {
 	const { selectedText, setSelectedText, handleSubmitAI, generation } =
 		useAITooltipContext();
 
-	const [showFeaturePopup, setShowFeaturePopup] = useState<boolean>(false);
-	const [showResultPopup, setShowResultPopup] = useState<boolean>(false);
+	const [showToolbar, setShowToolbar] = useState<boolean>(false);
 	const [popupPosition, setPopupPosition] = useState<Position>({ x: 0, y: 0 });
 	const editorRef = useRef<HTMLDivElement>(null);
 
 	const handleHighlight = useCallback(
 		(text: string | null, position: Position) => {
-			if (text && !showFeaturePopup) {
+			if (text && !showToolbar) {
 				setSelectedText(text);
 				setPopupPosition(position);
-				// setShowFeaturePopup(false);
-				// setShowResultPopup(false);
+				// setShowToolbar(false);
 			} else {
 				setSelectedText("");
 			}
@@ -49,28 +46,27 @@ export default function AIEditor() {
 
 	const handleAIButtonClick = (e: React.MouseEvent) => {
 		e.stopPropagation();
-		setShowFeaturePopup(true);
+		setShowToolbar(true);
 	};
 
 	const handleOptionSelect = (option: AITask, v?: string) => {
-		setShowFeaturePopup(false);
+		setShowToolbar(false);
 		handleSubmitAI(option, v);
-		setShowResultPopup(true);
 	};
 
-	const handleAIAction = (action: "replace" | "regenerate") => {
-		if (action === "replace" && editor) {
+	const replaceSelectedText = () => {
+		if (editor) {
 			editor.commands.setTextSelection({
 				from: editor.state.selection.from,
 				to: editor.state.selection.to
 			});
 			editor.commands.insertContent(generation);
-		} else if (action === "regenerate") {
-			// // Simulate regeneration
-			// setTimeout(() => {
-			// 	setAIResult(`Regenerated AI result for "${selectedText}"`);
-			// }, 1000);
 		}
+	};
+
+	const hideToolbar = () => {
+		setSelectedText("");
+		setShowToolbar(false);
 	};
 
 	useEffect(() => {
@@ -79,9 +75,7 @@ export default function AIEditor() {
 				editorRef.current &&
 				!editorRef.current.contains(event.target as Node)
 			) {
-				setSelectedText("");
-				setShowFeaturePopup(false);
-				setShowResultPopup(false);
+				hideToolbar();
 			}
 		};
 
@@ -95,22 +89,16 @@ export default function AIEditor() {
 		<div className="relative max-w-3xl mx-auto mt-8 p-4" ref={editorRef}>
 			<EditorContent editor={editor} />
 			<AnimatePresence>
-				{selectedText !== "" && !showFeaturePopup && !showResultPopup && (
+				{selectedText !== "" && !showToolbar && (
 					<AIButton onClick={handleAIButtonClick} position={popupPosition} />
 				)}
-				{showFeaturePopup && (
+				{showToolbar && (
 					<HighlightToolbar
-						_onClose={() => setShowFeaturePopup(false)}
+						_onClose={() => setShowToolbar(false)}
 						onOptionSelect={handleOptionSelect}
+						replaceSelectedText={replaceSelectedText}
 						position={popupPosition}
-					/>
-				)}
-				{showResultPopup && (
-					<ResultPopup
-						result={generation}
-						onClose={() => setShowResultPopup(false)}
-						onAction={handleAIAction}
-						position={popupPosition}
+						hideToolbar={hideToolbar}
 					/>
 				)}
 			</AnimatePresence>

@@ -53,6 +53,9 @@ export async function caseAITasks(
 		case AITask.ChangeStyle:
 			prompt = `${basicPrompt} Rewrite the following text in a ${options || "Professional"} tone: "${text}"`;
 			break;
+		case AITask.Regenerate:
+			prompt = `${basicPrompt} Rewrite the following text in a different way`;
+			break;
 		case AITask.Custom:
 			prompt = `${text}`;
 			break;

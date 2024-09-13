@@ -5,6 +5,7 @@ enum AITask {
 	Simplify = "simplify",
 	Summarize = "summarize",
 	ChangeStyle = "changeStyle",
+	Regenerate = "regenerate",
 	Custom = "custom"
 }
 
@@ -46,6 +47,8 @@ interface FeaturePopupProps {
 	_onClose: () => void;
 	onOptionSelect: (_option: AITask, _v?: string) => void;
 	position: Position;
+	replaceSelectedText: () => void;
+	hideToolbar: () => void;
 }
 
 interface ResultProps {

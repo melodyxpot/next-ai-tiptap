@@ -15,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-	title: "Next.js + Tiptap + Vercel AI",
+	title: "Tiptap AI Editor",
 	description: "This is the text editor made by tiptap + ai adk"
 };
 

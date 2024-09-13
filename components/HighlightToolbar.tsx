@@ -9,12 +9,15 @@ import ModifyPopup from "./popup/ModifyPopup";
 const HighlightToolbar: React.FC<FeaturePopupProps> = ({
 	_onClose,
 	onOptionSelect,
+	replaceSelectedText,
+	hideToolbar,
 	position
 }) => {
-	const [visibleState, setVisibleState] = useState<PopupState>("main");
+	const [visibleState, setVisibleState] = useState<PopupState>("result");
 
 	const handleOptionChoose = (v: string, o: AITask) => {
 		onOptionSelect(o, v);
+		setVisibleState("result");
 	};
 
 	return (
@@ -55,7 +58,12 @@ const HighlightToolbar: React.FC<FeaturePopupProps> = ({
 			)}
 
 			{visibleState === "result" && (
-				<ModifyPopup handleOptionChoose={handleOptionChoose} />
+				<ModifyPopup
+					handleOptionChoose={handleOptionChoose}
+					replaceSelectedText={replaceSelectedText}
+					onBack={() => setVisibleState("main")}
+					onDiscard={hideToolbar}
+				/>
 			)}
 		</motion.div>
 	);
