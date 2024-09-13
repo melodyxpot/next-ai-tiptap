@@ -3,7 +3,7 @@
 import { openai } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import { createStreamableValue } from "ai/rsc";
-import { AITask } from "@/types";
+import { AITask } from "@/@types";
 
 export async function generate(input: string) {
 	const stream = createStreamableValue("");
@@ -28,14 +28,15 @@ export async function generate(input: string) {
 export async function caseAITasks(
 	text: string,
 	task: AITask,
-	style: AITextStyle = "Professional"
+	style: AITextStyle = "Professional",
+	language: Languages = "English"
 ) {
 	// Create a prompt based on the task
 	let prompt = "";
 
 	switch (task) {
 		case AITask.Translate:
-			prompt = `Translate the following text: "${text}" into ${"Arabic"}`;
+			prompt = `Translate the following text: "${text}" into ${language}`;
 			break;
 		case AITask.Improve:
 			prompt = `Improve the following text: "${text}"`;
@@ -50,8 +51,7 @@ export async function caseAITasks(
 			prompt = `Summarize the following text: "${text}"`;
 			break;
 		case AITask.ChangeStyle:
-			const chosenStyle = style || "professional";
-			prompt = `Rewrite the following text in a ${chosenStyle} tone: "${text}"`;
+			prompt = `Rewrite the following text in a ${style || "Professional"} tone: "${text}"`;
 			break;
 		default:
 			return { error: "invalid task" };

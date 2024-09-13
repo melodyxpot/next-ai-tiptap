@@ -17,24 +17,8 @@
 	],
 	"plugins": ["import"],
 	"rules": {
-		"no-unused-vars": [
-			"error",
-			{
-				"argsIgnorePattern": "^_"
-			}
-		],
-		"@typescript-eslint/no-unused-vars": [
-			"error",
-			{
-				"args": "all",
-				"argsIgnorePattern": "^_",
-				"caughtErrors": "all",
-				"caughtErrorsIgnorePattern": "^_",
-				"destructuredArrayIgnorePattern": "^_",
-				"varsIgnorePattern": "^_",
-				"ignoreRestSiblings": true
-			}
-		],
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": "off",
 		"tailwindcss/no-custom-classname": "off",
 		"react-hooks/rules-of-hooks": "warn",
 		"react-hooks/exhaustive-deps": "off"
@@ -47,17 +31,11 @@
 			"parser": "@typescript-eslint/parser",
 			"rules": {
 				"no-mixed-spaces-and-tabs": "off",
-				"@typescript-eslint/no-explicit-any": "off",
-				"no-unused-vars": [
-					"error",
-					{
-						"argsIgnorePattern": "^_"
-					}
-				]
+				"@typescript-eslint/no-explicit-any": "off"
 			}
 		},
 		{
-			"files": ["**/*.d.ts", "@types/global.ts", "apis/**/*.ts"],
+			"files": ["**/*.d.ts", "@types/index.ts", "apis/**/*.ts"],
 			"rules": {
 				"no-unused-vars": "off",
 				"@typescript-eslint/no-explicit-any": "off"

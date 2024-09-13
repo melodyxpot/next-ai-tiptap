@@ -4,11 +4,9 @@ import React, { useState } from "react";
 import { posToDOMRect, useCurrentEditor } from "@tiptap/react";
 import { motion } from "framer-motion";
 import { SparklesIcon } from "lucide-react";
-import { SelectionContext } from "@/types";
+import { SelectionContext } from "@/@types";
 import { Popup } from "./Popup";
 import { Suggestions } from "./Suggestions";
-
-// import { Suggestions } from "./Suggestions";
 
 interface MenuProps {
 	suggestions: string[];

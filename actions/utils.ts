@@ -4,7 +4,7 @@ import { Node } from "@tiptap/pm/model";
 import { Transaction } from "@tiptap/pm/state";
 import { useDebouncedCallback } from "use-debounce";
 import { exponentialBackoff, fetchWithRetry } from "@/utils/index";
-import { SelectionContext } from "@/types";
+import { SelectionContext } from "@/@types";
 
 export const fetchSuggestions = async (context: SelectionContext) => {
 	const response = await fetchWithRetry("/api/suggestions", {

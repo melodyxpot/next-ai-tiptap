@@ -1,40 +1,40 @@
 "use client";
 
-import { ReactNode, createContext, useContext } from "react";
-import { ChatRequestOptions, Message } from "ai";
+import {
+	Dispatch,
+	ReactNode,
+	SetStateAction,
+	createContext,
+	useContext
+} from "react";
 import useAITooltip from "@/hooks/useAITooltip";
+import { AITask } from "@/@types";
 
 interface ContextProps {
-	messages: Message[];
-	input: string;
-	handleSubmit: (
-		event?: { preventDefault?: () => void },
-		chatRequestOptions?: ChatRequestOptions
-	) => void;
-	handleInputChange: (
-		e:
-			| React.ChangeEvent<HTMLInputElement>
-			| React.ChangeEvent<HTMLTextAreaElement>
-	) => void;
-	isLoading: boolean;
+	loading: boolean;
+	generation: string;
+	setSelectedText: Dispatch<SetStateAction<string>>;
+	selectedText: string;
+	handleSubmitAI: (task: AITask, style?: AITextStyle) => void;
 }
 
 const AITooltipContext = createContext<ContextProps | undefined>(undefined);
 
+//
 export const AITooltipProvideer: React.FC<{
 	children: ReactNode;
 }> = ({ children }) => {
-	const { messages, input, handleSubmit, handleInputChange, isLoading } =
+	const { loading, generation, setSelectedText, selectedText, handleSubmitAI } =
 		useAITooltip();
 
 	return (
 		<AITooltipContext.Provider
 			value={{
-				messages,
-				input,
-				handleSubmit,
-				handleInputChange,
-				isLoading
+				loading,
+				generation,
+				setSelectedText,
+				selectedText,
+				handleSubmitAI
 			}}
 		>
 			{children}

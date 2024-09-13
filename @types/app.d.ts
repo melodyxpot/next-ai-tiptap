@@ -1,4 +1,11 @@
-// declare type AITask = 'translate' | 'improve' | 'fixMistakes' | 'simplify' | 'summarize' | 'changeStyle';
+enum AITask {
+	Translate = "translate",
+	Improve = "improve",
+	FixMistakes = "fixMistakes",
+	Simplify = "simplify",
+	Summarize = "summarize",
+	ChangeStyle = "changeStyle"
+}
 
 declare type AITextStyle =
 	| "Professional"
@@ -7,7 +14,7 @@ declare type AITextStyle =
 	| "Confident"
 	| "Fun";
 
-declare type languages =
+declare type Languages =
 	| "Arabic"
 	| "Bengali"
 	| "Chinese"
@@ -34,7 +41,7 @@ interface AIButtonProps {
 
 interface FeaturePopupProps {
 	_onClose: () => void;
-	onOptionSelect: (_option: string) => void;
+	onOptionSelect: (_option: AITask) => void;
 	position: Position;
 }
 

@@ -4,14 +4,18 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { AnimatePresence } from "framer-motion";
+import { AITask } from "@/@types";
 import { CONTEXT } from "@/constants";
+import { useAITooltipContext } from "@/contexts/AITooltipProvider";
 import AIButton from "./AIButton";
 import FeaturePopup from "./FeaturePopup";
 import PopupExtension from "./PopupExtension";
 import ResultPopup from "./ResultPopup";
 
 export default function AIEditor() {
-	const [selectedText, setSelectedText] = useState<string | null>(null);
+	const { selectedText, setSelectedText, handleSubmitAI, generation } =
+		useAITooltipContext();
+
 	const [showFeaturePopup, setShowFeaturePopup] = useState(false);
 	const [showResultPopup, setShowResultPopup] = useState(false);
 	const [aiResult, setAIResult] = useState("");
@@ -26,7 +30,7 @@ export default function AIEditor() {
 				// showFeaturePopup(false);
 				// showResultPopup(false);
 			} else {
-				setSelectedText(null);
+				setSelectedText("");
 			}
 		},
 		[]
@@ -49,13 +53,16 @@ export default function AIEditor() {
 		setShowFeaturePopup(true);
 	};
 
-	const handleOptionSelect = (option: string) => {
+	const handleOptionSelect = (option: AITask) => {
 		console.log("[handleOptionSelect]");
 		setShowFeaturePopup(false);
+		setShowResultPopup(true);
+
+		handleSubmitAI(option);
+
 		// Simulate AI processing
 		setTimeout(() => {
 			setAIResult(`AI-generated result for "${option}" on "${selectedText}"`);
-			setShowResultPopup(true);
 		}, 1000);
 	};
 
@@ -92,6 +99,8 @@ export default function AIEditor() {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, []);
+
+	console.log("[generation]", generation);
 
 	return (
 		<div className="relative max-w-3xl mx-auto mt-8 p-4" ref={editorRef}>

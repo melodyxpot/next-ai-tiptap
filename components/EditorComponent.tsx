@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { readStreamableValue } from "ai/rsc";
+import { AITask } from "@/@types";
 import { caseAITasks } from "@/actions/generate";
-import { AITask } from "@/types";
 
 export default function EditorComponent() {
 	const [selectedText, setSelectedText] = useState<string>("");

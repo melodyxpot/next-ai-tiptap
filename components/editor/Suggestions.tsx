@@ -1,7 +1,7 @@
 import React from "react";
 import { useCurrentEditor } from "@tiptap/react";
 import { useUnmount } from "react-use";
-import { SelectionContext } from "@/types";
+import { SelectionContext } from "@/@types";
 import { Spinner } from "../icons/Spinner";
 
 interface PopupChildrenProps {
