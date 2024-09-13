@@ -15,7 +15,7 @@ interface ContextProps {
 	generation: string;
 	setSelectedText: Dispatch<SetStateAction<string>>;
 	selectedText: string;
-	handleSubmitAI: (task: AITask, style?: AITextStyle) => void;
+	handleSubmitAI: (task: AITask, style?: AITextStyle | Language) => void;
 }
 
 const AITooltipContext = createContext<ContextProps | undefined>(undefined);

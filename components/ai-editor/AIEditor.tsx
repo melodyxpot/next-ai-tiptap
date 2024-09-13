@@ -16,9 +16,8 @@ export default function AIEditor() {
 	const { selectedText, setSelectedText, handleSubmitAI, generation } =
 		useAITooltipContext();
 
-	const [showFeaturePopup, setShowFeaturePopup] = useState(false);
-	const [showResultPopup, setShowResultPopup] = useState(false);
-	const [aiResult, setAIResult] = useState("");
+	const [showFeaturePopup, setShowFeaturePopup] = useState<boolean>(false);
+	const [showResultPopup, setShowResultPopup] = useState<boolean>(false);
 	const [popupPosition, setPopupPosition] = useState<Position>({ x: 0, y: 0 });
 	const editorRef = useRef<HTMLDivElement>(null);
 
@@ -27,8 +26,8 @@ export default function AIEditor() {
 			if (text && !showFeaturePopup) {
 				setSelectedText(text);
 				// setPopupPosition(position);
-				// showFeaturePopup(false);
-				// showResultPopup(false);
+				// setShowFeaturePopup(false);
+				// setShowResultPopup(false);
 			} else {
 				setSelectedText("");
 			}
@@ -53,17 +52,10 @@ export default function AIEditor() {
 		setShowFeaturePopup(true);
 	};
 
-	const handleOptionSelect = (option: AITask) => {
-		console.log("[handleOptionSelect]");
+	const handleOptionSelect = (option: AITask, v?: AITextStyle | Language) => {
 		setShowFeaturePopup(false);
+		handleSubmitAI(option, v);
 		setShowResultPopup(true);
-
-		handleSubmitAI(option);
-
-		// Simulate AI processing
-		setTimeout(() => {
-			setAIResult(`AI-generated result for "${option}" on "${selectedText}"`);
-		}, 1000);
 	};
 
 	const handleAIAction = (action: "replace" | "regenerate") => {
@@ -72,12 +64,12 @@ export default function AIEditor() {
 				from: editor.state.selection.from,
 				to: editor.state.selection.to
 			});
-			editor.commands.insertContent(aiResult);
+			editor.commands.insertContent(generation);
 		} else if (action === "regenerate") {
-			// Simulate regeneration
-			setTimeout(() => {
-				setAIResult(`Regenerated AI result for "${selectedText}"`);
-			}, 1000);
+			// // Simulate regeneration
+			// setTimeout(() => {
+			// 	setAIResult(`Regenerated AI result for "${selectedText}"`);
+			// }, 1000);
 		}
 	};
 
@@ -87,7 +79,6 @@ export default function AIEditor() {
 				editorRef.current &&
 				!editorRef.current.contains(event.target as Node)
 			) {
-				console.log("union");
 				setSelectedText("");
 				setShowFeaturePopup(false);
 				setShowResultPopup(false);
@@ -99,8 +90,6 @@ export default function AIEditor() {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, []);
-
-	console.log("[generation]", generation);
 
 	return (
 		<div className="relative max-w-3xl mx-auto mt-8 p-4" ref={editorRef}>
@@ -118,8 +107,8 @@ export default function AIEditor() {
 				)}
 				{showResultPopup && (
 					<ResultPopup
-						result={aiResult}
-						onClose={() => console.log("hello world")}
+						result={generation}
+						onClose={() => setShowResultPopup(false)}
 						onAction={handleAIAction}
 						position={popupPosition}
 					/>

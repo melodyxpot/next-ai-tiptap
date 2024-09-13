@@ -28,15 +28,14 @@ export async function generate(input: string) {
 export async function caseAITasks(
 	text: string,
 	task: AITask,
-	style: AITextStyle = "Professional",
-	language: Languages = "English"
+	options?: AITextStyle | Language
 ) {
 	// Create a prompt based on the task
 	let prompt = "";
 
 	switch (task) {
 		case AITask.Translate:
-			prompt = `Translate the following text: "${text}" into ${language}`;
+			prompt = `Translate the following text: "${text}" into ${options}`;
 			break;
 		case AITask.Improve:
 			prompt = `Improve the following text: "${text}"`;
@@ -51,7 +50,7 @@ export async function caseAITasks(
 			prompt = `Summarize the following text: "${text}"`;
 			break;
 		case AITask.ChangeStyle:
-			prompt = `Rewrite the following text in a ${style || "Professional"} tone: "${text}"`;
+			prompt = `Rewrite the following text in a ${options || "Professional"} tone: "${text}"`;
 			break;
 		default:
 			return { error: "invalid task" };

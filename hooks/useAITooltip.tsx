@@ -13,7 +13,7 @@ export default function useAITooltip() {
 	// Function to stream AI response
 	const handleSubmitAI = async (
 		task: AITask,
-		style?: AITextStyle
+		style?: AITextStyle | Language
 	): Promise<void> => {
 		setLoading(true);
 		setGeneration(""); // Clear previous output

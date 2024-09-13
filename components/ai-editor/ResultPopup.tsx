@@ -31,7 +31,7 @@ const ResultPopup: React.FC<ResultProps> = ({
 			<div className="flex space-x-2">
 				<button
 					onClick={() => onAction("replace")}
-					className="flex-1 bg-indigo-600 text-white text-sm font-medium px-3 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+					className="flex-1 bg-indigo-600 text-white text-xs font-medium px-3 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 				>
 					Replace selection
 				</button>

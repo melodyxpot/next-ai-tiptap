@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import {
+	ArrowLeft,
 	ArrowUpNarrowWide,
-	ChevronDown,
 	Languages,
 	List,
 	ScrollText,
@@ -10,6 +10,9 @@ import {
 	WandSparkles
 } from "lucide-react";
 import { AITask } from "@/@types";
+import { contextStyles, languages } from "@/constants";
+
+const iconClassName = "w-4 h-4 mr-2 text-indigo-500";
 
 const OptionButton: React.FC<{
 	children: ReactNode;
@@ -25,65 +28,131 @@ const OptionButton: React.FC<{
 	);
 };
 
+const ItemList: React.FC<{
+	items: Array<{ content: ReactNode; onClick: () => void }>;
+	onBack: any;
+}> = ({ items, onBack }) => {
+	return (
+		<>
+			<OptionButton onClick={onBack}>
+				<ArrowLeft className={iconClassName} />
+				Back
+			</OptionButton>
+			{items.map((i, idx) => (
+				<OptionButton key={`list-${idx}`} onClick={i.onClick}>
+					{i.content}
+				</OptionButton>
+			))}
+		</>
+	);
+};
+
+const Selection: React.FC<{
+	label: AITask;
+	items: Array<AITextStyle | Language>;
+	onBack: () => void;
+	onSelect: (_v: AITextStyle | Language, _o: AITask) => void;
+}> = ({ items, onBack, onSelect, label }) => {
+	return (
+		<ItemList
+			items={items.map(i => ({
+				content: <p>{i}</p>,
+				onClick: () => onSelect(i, label)
+			}))}
+			onBack={onBack}
+		/>
+	);
+};
+
 const FeaturePopup: React.FC<FeaturePopupProps> = ({
 	_onClose,
 	onOptionSelect,
 	position
-}) => (
-	<motion.div
-		initial={{ opacity: 0, y: 10 }}
-		animate={{ opacity: 1, y: 0 }}
-		exit={{ opacity: 0, y: 10 }}
-		transition={{ duration: 0.2 }}
-		className="fixed z-20 w-64 bg-white border border-gray-200 rounded-lg shadow-xl p-1"
-		style={{
-			top: position.y,
-			left: position.x,
-			transform: "translate(-50%, 8px)"
-		}}
-	>
-		<div className="p-2 space-y-1">
-			<input
-				type="text"
-				placeholder="Enter custom prompt..."
-				className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-			/>
-		</div>
-		<div className="border-t border-gray-200">
-			<small className="flex items-center w-full px-3 py-2 text-[11px] text-left text-gray-600">
-				Modify Selection
-			</small>
-			<OptionButton onClick={() => onOptionSelect(AITask.Improve)}>
-				<WandSparkles className="w-4 h-4 mr-2 text-indigo-500" />
-				Improve writing
-			</OptionButton>
-			<OptionButton onClick={() => onOptionSelect(AITask.FixMistakes)}>
-				<SpellCheck className="w-4 h-4 mr-2 text-indigo-500" />
-				Fix mistakes
-			</OptionButton>
-			<OptionButton onClick={() => onOptionSelect(AITask.Simplify)}>
-				<ArrowUpNarrowWide className="w-4 h-4 mr-2 text-indigo-500" />
-				Simplify
-			</OptionButton>
-		</div>
-		<div className="border-t border-gray-200">
-			<small className="flex items-center w-full px-3 py-2 text-[11px] text-left text-gray-600">
-				Generate
-			</small>
-			<OptionButton onClick={() => onOptionSelect(AITask.Summarize)}>
-				<List className="w-4 h-4 mr-2 text-indigo-500" />
-				Summarise
-			</OptionButton>
-			<OptionButton onClick={() => onOptionSelect(AITask.Translate)}>
-				<Languages className="w-4 h-4 mr-2 text-indigo-500" />
-				Translate into...
-			</OptionButton>
-			<OptionButton onClick={() => onOptionSelect(AITask.ChangeStyle)}>
-				<ScrollText className="w-4 h-4 mr-2 text-indigo-500" />
-				Change style to...
-			</OptionButton>
-		</div>
-	</motion.div>
-);
+}) => {
+	const [visibleState, setVisibleState] = useState<
+		"main" | "language" | "style"
+	>("main");
+
+	const handleOptionChoose = (v: AITextStyle | Language, o: AITask) => {
+		onOptionSelect(o, v);
+	};
+
+	return (
+		<motion.div
+			initial={{ opacity: 0, y: 10 }}
+			animate={{ opacity: 1, y: 0 }}
+			exit={{ opacity: 0, y: 10 }}
+			transition={{ duration: 0.2 }}
+			className="fixed z-20 w-64 bg-white border border-gray-200 rounded-lg shadow-xl p-1"
+			style={{
+				top: position.y,
+				left: position.x,
+				transform: "translate(-50%, 8px)"
+			}}
+		>
+			{visibleState === "main" && (
+				<>
+					<div className="p-2 space-y-1">
+						<input
+							type="text"
+							placeholder="Enter custom prompt..."
+							className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+						/>
+					</div>
+					<div className="border-t border-gray-200">
+						<small className="flex items-center w-full px-3 py-2 text-[11px] text-left text-gray-600">
+							Modify Selection
+						</small>
+						<OptionButton onClick={() => onOptionSelect(AITask.Improve)}>
+							<WandSparkles className={iconClassName} />
+							Improve writing
+						</OptionButton>
+						<OptionButton onClick={() => onOptionSelect(AITask.FixMistakes)}>
+							<SpellCheck className={iconClassName} />
+							Fix mistakes
+						</OptionButton>
+						<OptionButton onClick={() => onOptionSelect(AITask.Simplify)}>
+							<ArrowUpNarrowWide className={iconClassName} />
+							Simplify
+						</OptionButton>
+					</div>
+					<div className="border-t border-gray-200">
+						<small className="flex items-center w-full px-3 py-2 text-[11px] text-left text-gray-600">
+							Generate
+						</small>
+						<OptionButton onClick={() => onOptionSelect(AITask.Summarize)}>
+							<List className={iconClassName} />
+							Summarise
+						</OptionButton>
+						<OptionButton onClick={() => setVisibleState("language")}>
+							<Languages className={iconClassName} />
+							Translate into...
+						</OptionButton>
+						<OptionButton onClick={() => setVisibleState("style")}>
+							<ScrollText className={iconClassName} />
+							Change style to...
+						</OptionButton>
+					</div>
+				</>
+			)}
+			{visibleState === "language" && (
+				<Selection
+					label={AITask.Translate}
+					items={languages}
+					onBack={() => setVisibleState("main")}
+					onSelect={handleOptionChoose}
+				/>
+			)}
+			{visibleState === "style" && (
+				<Selection
+					label={AITask.ChangeStyle}
+					items={contextStyles}
+					onBack={() => setVisibleState("main")}
+					onSelect={handleOptionChoose}
+				/>
+			)}
+		</motion.div>
+	);
+};
 
 export default FeaturePopup;

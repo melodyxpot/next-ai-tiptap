@@ -14,7 +14,7 @@ declare type AITextStyle =
 	| "Confident"
 	| "Fun";
 
-declare type Languages =
+declare type Language =
 	| "Arabic"
 	| "Bengali"
 	| "Chinese"
@@ -41,7 +41,7 @@ interface AIButtonProps {
 
 interface FeaturePopupProps {
 	_onClose: () => void;
-	onOptionSelect: (_option: AITask) => void;
+	onOptionSelect: (_option: AITask, _v?: AITextStyle | Language) => void;
 	position: Position;
 }
 
