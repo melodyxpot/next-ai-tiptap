@@ -1,7 +1,7 @@
 import Image from "next/image";
 // import EditorComponent from "@/components/EditorComponent";
 // import { Editor } from "@/components";
-import AIEditor from "@/components/editor/AIEditor";
+import AIEditor from "@/components/ai-editor/AIEditor";
 import { AITooltipProvideer } from "@/contexts/AITooltipProvider";
 
 export default function Home() {
