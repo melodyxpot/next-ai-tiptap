@@ -1,6 +1,6 @@
 import Image from "next/image";
-import EditorComponent from "@/components/EditorComponent";
-// import { Editor } from "@/components";
+// import EditorComponent from "@/components/EditorComponent";
+import { Editor } from "@/components";
 import { AITooltipProvideer } from "@/contexts/AITooltipProvider";
 
 export default function Home() {
@@ -23,8 +23,8 @@ export default function Home() {
 					</span>
 				</div>
 				<AITooltipProvideer>
-					{/* <Editor /> */}
-					<EditorComponent />
+					<Editor />
+					{/* <EditorComponent /> */}
 				</AITooltipProvideer>
 			</div>
 		</main>
