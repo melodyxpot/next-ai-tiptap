@@ -24,3 +24,5 @@ export const contextStyles: Array<AITextStyle> = [
 	"Confident",
 	"Fun"
 ];
+
+export const basicPrompt = `You are an helpful AI text editor assistant. Don't return the text with double quote or single quote if the provited text is not in double quote or single quote.`;

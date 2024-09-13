@@ -4,6 +4,7 @@ import { openai } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import { createStreamableValue } from "ai/rsc";
 import { AITask } from "@/@types";
+import { basicPrompt } from "@/constants";
 
 export async function generate(input: string) {
 	const stream = createStreamableValue("");
@@ -28,29 +29,32 @@ export async function generate(input: string) {
 export async function caseAITasks(
 	text: string,
 	task: AITask,
-	options?: AITextStyle | Language
+	options?: string
 ) {
 	// Create a prompt based on the task
 	let prompt = "";
 
 	switch (task) {
 		case AITask.Translate:
-			prompt = `Translate the following text: "${text}" into ${options}`;
+			prompt = `${basicPrompt} Translate the following text: "${text}" into ${options}`;
 			break;
 		case AITask.Improve:
-			prompt = `Improve the following text: "${text}"`;
+			prompt = `${basicPrompt} Improve the following text: "${text}"`;
 			break;
 		case AITask.FixMistakes:
-			prompt = `Fix mistakes in the following text: "${text}"`;
+			prompt = `${basicPrompt} Fix mistakes in the following text: "${text}"`;
 			break;
 		case AITask.Simplify:
-			prompt = `Simplify the following text: "${text}"`;
+			prompt = `${basicPrompt} Simplify the following text: "${text}"`;
 			break;
 		case AITask.Summarize:
-			prompt = `Summarize the following text: "${text}"`;
+			prompt = `${basicPrompt} Summarize the following text: "${text}"`;
 			break;
 		case AITask.ChangeStyle:
-			prompt = `Rewrite the following text in a ${options || "Professional"} tone: "${text}"`;
+			prompt = `${basicPrompt} Rewrite the following text in a ${options || "Professional"} tone: "${text}"`;
+			break;
+		case AITask.Custom:
+			prompt = `${text}`;
 			break;
 		default:
 			return { error: "invalid task" };

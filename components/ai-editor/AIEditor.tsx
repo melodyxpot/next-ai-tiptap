@@ -25,7 +25,7 @@ export default function AIEditor() {
 		(text: string | null, position: Position) => {
 			if (text && !showFeaturePopup) {
 				setSelectedText(text);
-				// setPopupPosition(position);
+				setPopupPosition(position);
 				// setShowFeaturePopup(false);
 				// setShowResultPopup(false);
 			} else {
@@ -52,7 +52,7 @@ export default function AIEditor() {
 		setShowFeaturePopup(true);
 	};
 
-	const handleOptionSelect = (option: AITask, v?: AITextStyle | Language) => {
+	const handleOptionSelect = (option: AITask, v?: string) => {
 		setShowFeaturePopup(false);
 		handleSubmitAI(option, v);
 		setShowResultPopup(true);

@@ -4,7 +4,8 @@ export enum AITask {
 	FixMistakes = "fixMistakes",
 	Simplify = "simplify",
 	Summarize = "summarize",
-	ChangeStyle = "changeStyle"
+	ChangeStyle = "changeStyle",
+	Custom = "custom"
 }
 
 export interface SelectionContext {

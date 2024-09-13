@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { KeyboardEvent, ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import {
 	ArrowLeft,
@@ -49,9 +49,9 @@ const ItemList: React.FC<{
 
 const Selection: React.FC<{
 	label: AITask;
-	items: Array<AITextStyle | Language>;
+	items: Array<string>;
 	onBack: () => void;
-	onSelect: (_v: AITextStyle | Language, _o: AITask) => void;
+	onSelect: (_v: string, _o: AITask) => void;
 }> = ({ items, onBack, onSelect, label }) => {
 	return (
 		<ItemList
@@ -72,9 +72,16 @@ const FeaturePopup: React.FC<FeaturePopupProps> = ({
 	const [visibleState, setVisibleState] = useState<
 		"main" | "language" | "style"
 	>("main");
+	const [prompt, setPrompt] = useState<string>("");
 
-	const handleOptionChoose = (v: AITextStyle | Language, o: AITask) => {
+	const handleOptionChoose = (v: string, o: AITask) => {
 		onOptionSelect(o, v);
+	};
+
+	const handleInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter") {
+			handleOptionChoose(prompt, AITask.Custom);
+		}
 	};
 
 	return (
@@ -96,6 +103,8 @@ const FeaturePopup: React.FC<FeaturePopupProps> = ({
 						<input
 							type="text"
 							placeholder="Enter custom prompt..."
+							onChange={e => setPrompt(e.currentTarget.value)}
+							onKeyDown={handleInputKeyDown}
 							className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
 						/>
 					</div>

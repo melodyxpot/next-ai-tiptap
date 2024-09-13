@@ -4,7 +4,8 @@ enum AITask {
 	FixMistakes = "fixMistakes",
 	Simplify = "simplify",
 	Summarize = "summarize",
-	ChangeStyle = "changeStyle"
+	ChangeStyle = "changeStyle",
+	Custom = "custom"
 }
 
 declare type AITextStyle =
@@ -41,7 +42,7 @@ interface AIButtonProps {
 
 interface FeaturePopupProps {
 	_onClose: () => void;
-	onOptionSelect: (_option: AITask, _v?: AITextStyle | Language) => void;
+	onOptionSelect: (_option: AITask, _v?: string) => void;
 	position: Position;
 }
 
