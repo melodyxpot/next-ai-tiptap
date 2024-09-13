@@ -5,18 +5,18 @@ import { CompletionPreview } from "./CompletionPreview";
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
 		selectionHighlight: {
-			setSelectionHighlight: (from: number, to: number) => ReturnType;
+			setSelectionHighlight: (_from: number, _to: number) => ReturnType;
 			unsetSelectionHighlight: () => ReturnType;
 		};
 
 		textReplacement: {
-			previewText: (text: string) => ReturnType;
+			previewText: (_text: string) => ReturnType;
 			revertText: () => ReturnType;
-			setText: (text: string) => ReturnType;
+			setText: (_text: string) => ReturnType;
 		};
 
 		completion: {
-			previewCompletion: (text: string) => ReturnType;
+			previewCompletion: (_text: string) => ReturnType;
 			confirmCompletion: () => ReturnType;
 			revertCompletion: () => ReturnType;
 		};
@@ -220,7 +220,9 @@ export const SelectionHighlightMark = Mark.create({
 								mark.to,
 								getMarkType("selectionHighlight", state.schema)
 							);
-						} catch (e) {}
+						} catch (_e) {
+							throw new Error("Error removing mark");
+						}
 					});
 					marks = [];
 					return true;
