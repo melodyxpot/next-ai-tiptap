@@ -3,7 +3,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from "@vercel/kv";
 
 export const withRateLimit =
-	(handler: (req: Request, res: Response) => Promise<NextResponse>) =>
+	(handler: (_req: Request, _res: Response) => Promise<NextResponse>) =>
 	async (req: Request, res: Response) => {
 		if (
 			process.env.NODE_ENV === "production" &&

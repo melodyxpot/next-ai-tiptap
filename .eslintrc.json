@@ -18,9 +18,21 @@
 	"plugins": ["import"],
 	"rules": {
 		"no-unused-vars": [
-			"off",
+			"error",
 			{
 				"argsIgnorePattern": "^_"
+			}
+		],
+		"@typescript-eslint/no-unused-vars": [
+			"error",
+			{
+				"args": "all",
+				"argsIgnorePattern": "^_",
+				"caughtErrors": "all",
+				"caughtErrorsIgnorePattern": "^_",
+				"destructuredArrayIgnorePattern": "^_",
+				"varsIgnorePattern": "^_",
+				"ignoreRestSiblings": true
 			}
 		],
 		"tailwindcss/no-custom-classname": "off",
@@ -35,7 +47,13 @@
 			"parser": "@typescript-eslint/parser",
 			"rules": {
 				"no-mixed-spaces-and-tabs": "off",
-				"@typescript-eslint/no-explicit-any": "off"
+				"@typescript-eslint/no-explicit-any": "off",
+				"no-unused-vars": [
+					"error",
+					{
+						"argsIgnorePattern": "^_"
+					}
+				]
 			}
 		},
 		{
