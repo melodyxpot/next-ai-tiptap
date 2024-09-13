@@ -1,7 +1,5 @@
 import Image from "next/image";
-// import EditorComponent from "@/components/EditorComponent";
-// import { Editor } from "@/components";
-import AIEditor from "@/components/ai-editor/AIEditor";
+import AIEditor from "@/components/AIEditor";
 import { AITooltipProvideer } from "@/contexts/AITooltipProvider";
 
 export default function Home() {
@@ -24,9 +22,7 @@ export default function Home() {
 					</span>
 				</div>
 				<AITooltipProvideer>
-					{/* <Editor /> */}
 					<AIEditor />
-					{/* <EditorComponent /> */}
 				</AITooltipProvideer>
 			</div>
 		</main>
