@@ -8,6 +8,8 @@ enum AITask {
 	Custom = "custom"
 }
 
+declare type PopupState = "main" | "language" | "style" | "result";
+
 declare type AITextStyle =
 	| "Professional"
 	| "Straignforward"

@@ -1,7 +1,7 @@
 import { Extension } from "@tiptap/core";
 import { Plugin, PluginKey } from "prosemirror-state";
 
-const PopupExtension = (
+const ToolbarExtension = (
 	onTextSelected: (_text: string | null, _position: Position) => void
 ) => {
 	return Extension.create({
@@ -34,4 +34,4 @@ const PopupExtension = (
 	});
 };
 
-export default PopupExtension;
+export default ToolbarExtension;

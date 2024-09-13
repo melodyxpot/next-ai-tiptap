@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
-const FeatureButton: React.FC<{
-	children: ReactNode;
+const ListButton: React.FC<{
+	children?: ReactNode;
 	onClick: () => void;
 }> = ({ children, onClick }) => {
 	return (
@@ -14,4 +14,4 @@ const FeatureButton: React.FC<{
 	);
 };
 
-export default FeatureButton;
+export default ListButton;

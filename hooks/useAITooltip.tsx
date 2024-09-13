@@ -7,7 +7,7 @@ import { caseAITasks } from "@/actions/generate";
 
 export default function useAITooltip() {
 	const [selectedText, setSelectedText] = useState<string>("");
-	const [generation, setGeneration] = useState<string>("");
+	const [generation, setGeneration] = useState<string>("Hello World");
 	const [loading, setLoading] = useState<boolean>(false);
 
 	// Function to stream AI response

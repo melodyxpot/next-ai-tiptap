@@ -9,8 +9,8 @@ import { CONTEXT } from "@/constants";
 import { useAITooltipContext } from "@/contexts/AITooltipProvider";
 import AIButton from "./AIButton";
 import HighlightToolbar from "./HighlightToolbar";
-import PopupExtension from "./PopupExtension";
 import ResultPopup from "./ResultPopup";
+import ToolbarExtension from "./ToolbarExtension";
 
 export default function AIEditor() {
 	const { selectedText, setSelectedText, handleSubmitAI, generation } =
@@ -36,7 +36,7 @@ export default function AIEditor() {
 	);
 
 	const editor = useEditor({
-		extensions: [StarterKit, PopupExtension(handleHighlight)],
+		extensions: [StarterKit, ToolbarExtension(handleHighlight)],
 		content: `<p>${CONTEXT}</p>`,
 		editorProps: {
 			attributes: {
