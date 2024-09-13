@@ -1,11 +1,15 @@
+'use client';
+
 import { posToDOMRect, useCurrentEditor } from "@tiptap/react";
 import { SparklesIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 import { SelectionContext } from "@/types";
 
 import { Popup } from "./Popup";
 import { Suggestions } from "./Suggestions";
+// import { Suggestions } from "./Suggestions";
 
 interface MenuProps {
   suggestions: string[];
@@ -17,6 +21,7 @@ export const Menu = ({ suggestions, context, status }: MenuProps) => {
   const { editor } = useCurrentEditor();
 
   const lastRect = React.useRef<DOMRect | null>(null);
+  const [popupOpen, setPopupOpen] = useState<boolean>(false);
 
   const rect = React.useMemo(() => {
     if (!editor || status === "done") {
@@ -47,14 +52,19 @@ export const Menu = ({ suggestions, context, status }: MenuProps) => {
   if (!editor || editor.isDestroyed) {
     return null;
   }
+  console.log('[status]', status);
+  console.log('[popupOpen]', popupOpen);
 
   return (
     <Popup rect={rect} visible={status !== "idle"}>
       <div className="flex flex-col gap-2">
-        <div className="flex flex-row items-center gap-1">
-          <span className="text-sm font-semibold">Suggestions</span>
-          <SparklesIcon className="w-4 h-4 text-violet-500" />
-        </div>
+        <motion.div 
+          className="flex flex-row items-center gap-1 text-violet-500 cursor-pointer" 
+          onClick={() => setPopupOpen(true)}
+        >
+          <p className="text-sm font-semibold" >AI</p>
+          <SparklesIcon className="w-4 h-4" />
+        </motion.div>
         <Suggestions
           isLoading={status === "fetching" || status === "idle"}
           suggestions={suggestions}

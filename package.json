@@ -24,6 +24,7 @@
     "ai": "^3.3.28",
     "clsx": "^2.1.1",
     "fetch-retry": "^6.0.0",
+    "framer-motion": "^11.5.4",
     "lucide-react": "^0.439.0",
     "next": "14.2.8",
     "openai": "^4.58.2",

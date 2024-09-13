@@ -198,6 +198,7 @@ export const SelectionHighlightMark = Mark.create({
 
   addCommands() {
     let marks: { from: number; to: number }[] = [];
+    console.log('[marks]', marks);
 
     return {
       setSelectionHighlight:

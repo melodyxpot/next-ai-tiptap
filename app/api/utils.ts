@@ -2,7 +2,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from "@vercel/kv";
 import { NextResponse } from "next/server";
 
-export const withRateLimit =
+export const withRateLimit =  
   (handler: (req: Request, res: Response) => Promise<NextResponse>) =>
   async (req: Request, res: Response) => {
     if (

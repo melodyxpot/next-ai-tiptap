@@ -171,7 +171,7 @@ const COMPLETION_CONTEXT_CHARS = 128;
 
 export const useCompletion = () => {
   const debouncedCompletion = useDebouncedCallback(
-    async (editor: IEditor, transaction: Transaction) => {
+    async (editor: IEditor) => {
       const text = getTextForSlice(
         editor.state.doc.cut(
           Math.max(0, editor.state.selection.from - COMPLETION_CONTEXT_CHARS),
@@ -200,7 +200,7 @@ export const useCompletion = () => {
           editor.state.selection.empty &&
           editor.state.doc.textContent.length > MIN_DOC_LENGTH_FOR_COMPLETION
         ) {
-          debouncedCompletion(editor, transaction);
+          debouncedCompletion(editor);
         }
       }
     },
