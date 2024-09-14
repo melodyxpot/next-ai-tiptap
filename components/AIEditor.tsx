@@ -18,7 +18,7 @@ export default function AIEditor() {
 	const [showToolbar, setShowToolbar] = useState<boolean>(false);
 	const [popupPosition, setPopupPosition] = useState<Position>({ x: 0, y: 0 });
 	const [popupVisibleState, setPopupVisibleState] =
-		useState<PopupState>("main");
+		useState<PopupState>("result");
 
 	const editorRef = useRef<HTMLDivElement>(null);
 

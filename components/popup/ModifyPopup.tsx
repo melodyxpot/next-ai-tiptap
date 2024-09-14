@@ -30,9 +30,9 @@ export default function ModifyPopup({
 
 	return (
 		<div>
-			<div className="bg-card pointer-events-auto isolate origin-top-left rounded-lg border border-gray-300/75 bg-white shadow-xl mb-2">
+			<div className="bg-card pointer-events-auto isolate origin-top-left rounded-lg border border-gray-300/75 bg-white shadow-xl mb-2 min-w-[400px]">
 				<div className="border-b border-gray-300 leading-relaxed pr-8">
-					<div className="relative min-h-[32px] max-h-[62px] select-none whitespace-pre-wrap px-3 py-2 text-xs">
+					<div className="relative min-h-[32px] select-none whitespace-pre-wrap px-3 py-2 text-xs">
 						<CopyButton text={generation} />
 						{generation}
 					</div>
