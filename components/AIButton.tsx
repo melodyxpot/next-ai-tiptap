@@ -1,11 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
-import { useAITooltipContext } from "@/contexts/AITooltipProvider";
 
 const AIButton: React.FC<AIButtonProps> = ({ onClick, position }) => {
-	const { selectedText } = useAITooltipContext();
-
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 10 }}

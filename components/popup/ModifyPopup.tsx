@@ -7,7 +7,7 @@ import {
 	Trash2
 } from "lucide-react";
 import { useAITooltipContext } from "@/contexts/AITooltipProvider";
-import CopyButton from "../CopyButton";
+import CopyButton from "../ui/CopyButton";
 import Input from "../ui/Input";
 import ListSelection, { ListOption } from "../ui/ListSelection";
 import { iconClassName } from "../ui/ListSelection";
