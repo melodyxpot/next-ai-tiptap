@@ -22,6 +22,33 @@ export default function AIEditor() {
 
 	const editorRef = useRef<HTMLDivElement>(null);
 
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (
+				editorRef.current &&
+				!editorRef.current.contains(event.target as Node)
+			) {
+				hideToolbar();
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []);
+
+	useEffect(() => {
+		if (selectedText === "") {
+			setShowToolbar(false);
+		}
+	}, [selectedText]);
+
+	const hideToolbar = () => {
+		setSelectedText("");
+		setShowToolbar(false);
+	};
+
 	const handleHighlight = useCallback(
 		(text: string | null, position: Position) => {
 			if (text && !showToolbar) {
@@ -66,27 +93,6 @@ export default function AIEditor() {
 			editor.commands.insertContent(generation);
 		}
 	};
-
-	const hideToolbar = () => {
-		setSelectedText("");
-		setShowToolbar(false);
-	};
-
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (
-				editorRef.current &&
-				!editorRef.current.contains(event.target as Node)
-			) {
-				hideToolbar();
-			}
-		};
-
-		document.addEventListener("mousedown", handleClickOutside);
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, []);
 
 	return (
 		<div className="relative max-w-3xl mx-auto mt-8 p-4" ref={editorRef}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AITask } from "@/@types";
 import AdditionalPopup from "./popup/AdditionalPopup";
